@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ollama 聊天界面</title>
+    <style>
+        #chat-container {
+            width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        #messages {
+            height: 400px;
+            border: 1px solid #ccc;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .user {
+            background-color: #e3f2fd;
+            text-align: right;
+        }
+        .assistant {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="messages"></div>
+        <div>
+            <select id="model">
+                <option value="llama3-cn">Llama 3 中文</option>
+            </select>
+            <input type="text" id="message" style="width: 80%;" placeholder="输入消息...">
+            <button onclick="sendMessage()">发送</button>
+        </div>
+    </div>
+
+    <script>
+        const messagesDiv = document.getElementById('messages');
+        const messageInput = document.getElementById('message');
+        const modelSelect = document.getElementById('model');
+        let chatHistory = [];
+
+        function addMessage(role, content) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}`;
+            messageDiv.textContent = content;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const content = messageInput.value.trim();
+            if (!content) return;
+
+            const requestData = {
+                model: modelSelect.value,
+                messages: chatHistory
+            };
+            
+            console.log('发送请求:', requestData);
+
+            addMessage('user', content);
+            chatHistory.push({role: 'user', content: content});
+            messageInput.value = '';
+
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        model: modelSelect.value,
+                        messages: chatHistory
+                    })
+                });
+
+                const data = await response.json();
+                chatHistory.push(data.message);
+                addMessage('assistant', data.message.content);
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage('assistant', '发生错误，请重试。');
+            }
+        }
+
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html> 
