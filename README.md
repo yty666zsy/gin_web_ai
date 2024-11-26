@@ -18,7 +18,7 @@ ollama run "大模型的名称"
 
 然后运行代码，如下图所示
 
-![image-20241126164139716](C:\Users\yuzai\AppData\Roaming\Typora\typora-user-images\image-20241126164139716.png)
+![image-20241126164139716](https://github.com/yty666zsy/gin_web_ai/raw/master/image/image-20241126164437662.png)
 
 ```shell
 "然后开启一个新的终端"
@@ -27,12 +27,12 @@ go run main.go
 
 这里需要注意的是端口号可以适当的进行修改，防止某些端口被占用的情况
 
-![image-20241126164234439](C:\Users\yuzai\AppData\Roaming\Typora\typora-user-images\image-20241126164234439.png)
+![image-20241126164139716](https://github.com/yty666zsy/gin_web_ai/raw/master/image/image-20241126164234439.png)
 
 然后本地访问127.0.0.1:8088就能打开网址进行愉快的聊天啦
 
-![image-20241126164631039](C:\Users\yuzai\AppData\Roaming\Typora\typora-user-images\image-20241126164631039.png)
+![image-20241126164139716](https://github.com/yty666zsy/gin_web_ai/raw/master/image/image-20241126164631039.png)
 
 同时后台同步打印信息以便日志管理
 
-![image-20241126164717202](C:\Users\yuzai\AppData\Roaming\Typora\typora-user-images\image-20241126164717202.png)
+![image-20241126164139716](https://github.com/yty666zsy/gin_web_ai/raw/master/image/image-20241126164717202.png)
